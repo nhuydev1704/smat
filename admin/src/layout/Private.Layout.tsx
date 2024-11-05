@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import type { ProSettings } from '@ant-design/pro-components';
 import { PageContainer, ProCard, ProConfigProvider, ProLayout, SettingDrawer } from '@ant-design/pro-components';
-import { Button, ConfigProvider, Dropdown, Input, theme } from 'antd';
+import { Button, ConfigProvider, Dropdown, Flex, Input, theme } from 'antd';
 import { useState } from 'react';
 import defaultProps from './_defaultProps';
 
@@ -55,17 +55,23 @@ const SearchInput = () => {
 };
 
 export default function PrivateLayout() {
+    const { token } = theme.useToken();
+    console.log('theme.darkAlgorithm', theme.darkAlgorithm);
+    const [collapsed, setCollapsed] = useState(false);
+
     const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
         fixSiderbar: true,
         layout: 'mix',
         // splitMenus: true,
     });
+    console.log('🚀 ~ PrivateLayout ~ settings:', settings);
 
     const [pathname, setPathname] = useState('/list/sub-page/sub-sub-page1');
     const [num, setNum] = useState(40);
     if (typeof document === 'undefined') {
         return <div />;
     }
+
     return (
         <div
             id="test-pro-layout"
@@ -76,11 +82,15 @@ export default function PrivateLayout() {
         >
             <ProConfigProvider hashed={false}>
                 <ConfigProvider
+                    theme={{
+                        algorithm: theme.compactAlgorithm,
+                    }}
                     getTargetContainer={() => {
                         return document.getElementById('test-pro-layout') || document.body;
                     }}
                 >
                     <ProLayout
+                        onCollapse={setCollapsed}
                         prefixCls="my-prefix"
                         {...defaultProps}
                         location={{
@@ -90,8 +100,15 @@ export default function PrivateLayout() {
                             header: {
                                 colorBgMenuItemSelected: 'rgba(0,0,0,0.04)',
                             },
+                            // bgLayout: token.colorBgLayout,
+                            pageContainer: {
+                                // colorBgPageContainer: '#f1f1f1',
+                            },
+                            sider: {
+                                paddingInlineLayoutMenu: collapsed ? 8 : 0,
+                            },
                         }}
-                        // siderMenuType="group"
+                        siderWidth={256}
                         menu={{
                             collapsedShowGroupTitle: true,
                         }}
@@ -158,15 +175,6 @@ export default function PrivateLayout() {
                             );
                         }}
                         onMenuHeaderClick={(e) => console.log(e)}
-                        menuItemRender={(item, dom) => (
-                            <div
-                                onClick={() => {
-                                    setPathname(item.path || '/welcome');
-                                }}
-                            >
-                                {dom}
-                            </div>
-                        )}
                         {...settings}
                     >
                         <PageContainer
@@ -187,12 +195,6 @@ export default function PrivateLayout() {
                                 </Button>,
                             ]}
                             subTitle="简单的描述"
-                            footer={[
-                                <Button key="3">重置</Button>,
-                                <Button key="2" type="primary">
-                                    提交
-                                </Button>,
-                            ]}
                         >
                             <ProCard
                                 style={{
