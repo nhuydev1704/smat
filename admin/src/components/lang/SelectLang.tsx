@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Menu, version, Dropdown } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import { DropDownProps } from 'antd/es/dropdown';
+import useAppStore from '@/store/app';
 
 export interface HeaderDropdownProps extends DropDownProps {
     overlayClassName?: string;
@@ -16,6 +17,7 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({ overlayClassName: cls, 
 
 interface LocalData {
     lang: string;
+    key: string;
     label?: string;
     icon?: string;
     title?: string;
@@ -33,16 +35,16 @@ interface SelectLangProps {
 
 const defaultLangUConfigMap = [
     {
-        lang: 'en-US',
-        key: 'en-US',
+        lang: 'en_US',
+        key: 'en_US',
         label: 'English',
         icon: '🇺🇸',
         title: 'Language',
     },
 
     {
-        lang: 'vi-VN',
-        key: 'vi-VN',
+        lang: 'vi_VN',
+        key: 'vi_VN',
         label: 'Tiếng Việt',
         icon: '🇻🇳',
         title: 'Ngôn ngữ',
@@ -50,11 +52,12 @@ const defaultLangUConfigMap = [
 ];
 
 export const SelectLang: React.FC<SelectLangProps> = (props) => {
-    const { globalIconClassName, postLocalesData, onItemClick, icon, style, reload, ...restProps } = props;
-    const [selectedLang, setSelectedLang] = useState('');
+    const { globalIconClassName, postLocalesData, onItemClick, icon, style, ...restProps } = props;
+    const { locale: selectedLang, setLocale } = useAppStore();
 
     const changeLang = ({ key }: ClickParam): void => {
         console.log('🚀 ~ changeLang ~ key:', key);
+        setLocale(key);
     };
 
     const defaultLangUConfig = defaultLangUConfigMap;
