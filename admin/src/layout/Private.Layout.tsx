@@ -11,6 +11,7 @@ import { PageContainer, ProCard, ProConfigProvider, ProLayout, SettingDrawer } f
 import { Button, ConfigProvider, Dropdown, Flex, Input, theme } from 'antd';
 import { useState } from 'react';
 import defaultProps from './_defaultProps';
+import { SelectLang } from '../components/lang/SelectLang';
 
 const SearchInput = () => {
     const { token } = theme.useToken();
@@ -55,7 +56,6 @@ const SearchInput = () => {
 };
 
 export default function PrivateLayout() {
-    const { token } = theme.useToken();
     console.log('theme.darkAlgorithm', theme.darkAlgorithm);
     const [collapsed, setCollapsed] = useState(false);
 
@@ -64,7 +64,6 @@ export default function PrivateLayout() {
         layout: 'mix',
         // splitMenus: true,
     });
-    console.log('🚀 ~ PrivateLayout ~ settings:', settings);
 
     const [pathname, setPathname] = useState('/list/sub-page/sub-sub-page1');
     const [num, setNum] = useState(40);
@@ -82,9 +81,6 @@ export default function PrivateLayout() {
         >
             <ProConfigProvider hashed={false}>
                 <ConfigProvider
-                    theme={{
-                        algorithm: theme.compactAlgorithm,
-                    }}
                     getTargetContainer={() => {
                         return document.getElementById('test-pro-layout') || document.body;
                     }}
@@ -100,9 +96,9 @@ export default function PrivateLayout() {
                             header: {
                                 colorBgMenuItemSelected: 'rgba(0,0,0,0.04)',
                             },
-                            // bgLayout: token.colorBgLayout,
+                            bgLayout: settings?.navTheme === 'light' ? '#fff' : '#000',
                             pageContainer: {
-                                // colorBgPageContainer: '#f1f1f1',
+                                colorBgPageContainer: settings?.navTheme === 'light' ? '#f1f1f1' : '#000',
                             },
                             sider: {
                                 paddingInlineLayoutMenu: collapsed ? 8 : 0,
@@ -143,7 +139,7 @@ export default function PrivateLayout() {
                                 ) : undefined,
                                 <InfoCircleFilled key="InfoCircleFilled" />,
                                 <QuestionCircleFilled key="QuestionCircleFilled" />,
-                                <GithubFilled key="GithubFilled" />,
+                                <SelectLang key="SelectLang" />,
                             ];
                         }}
                         headerTitleRender={(logo, title, _) => {
