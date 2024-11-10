@@ -2,24 +2,9 @@ import { useNavigate } from 'react-router';
 
 import useAppStore from '@/store/app';
 
-import {
-    AlipayCircleOutlined,
-    LockOutlined,
-    MailOutlined,
-    MobileOutlined,
-    TaobaoCircleOutlined,
-    UserOutlined,
-    WeiboCircleOutlined,
-} from '@ant-design/icons';
-import {
-    LoginForm,
-    ProConfigProvider,
-    ProFormCaptcha,
-    ProFormCheckbox,
-    ProFormText,
-    setAlpha,
-} from '@ant-design/pro-components';
-import { Space, Tabs, message, theme } from 'antd';
+import { LockOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormCheckbox, ProFormText, setAlpha } from '@ant-design/pro-components';
+import { Input, theme } from 'antd';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 
@@ -30,7 +15,6 @@ export default function Login() {
     const appStore = useAppStore();
 
     const { token } = theme.useToken();
-    const [loginType, setLoginType] = useState<LoginType>('phone');
 
     const iconStyles: CSSProperties = {
         marginInlineStart: '16px',
@@ -51,7 +35,15 @@ export default function Login() {
 
     return (
         <div style={{ backgroundColor: token.colorBgContainer }}>
-            <LoginForm>
+            <LoginForm
+                title="Đăng nhập"
+                subTitle=" "
+                onFinish={() => {
+                    appStore.setToken('token');
+                    navigate('/');
+                }}
+                submitter={{ searchConfig: { submitText: 'Đăng nhập' } }}
+            >
                 <>
                     <ProFormText
                         name="email"
@@ -70,7 +62,6 @@ export default function Login() {
                     <ProFormText.Password
                         name="password"
                         fieldProps={{
-                            prefix: <LockOutlined className={'prefixIcon'} />,
                             strengthText: 'Mật khẩu phải chứa số, chữ cái và ký tự đặc biệt, dài ít nhất 8 ký tự.',
                             statusRender: (value) => {
                                 const getStatus = () => {

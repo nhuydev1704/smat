@@ -3,13 +3,13 @@ import { RouteObject } from 'react-router-dom';
 import lazy from '@/helpers/lazy';
 import { RootErrorBoundary } from '@/components';
 import Layout from '@/layout/Layout';
+import Login from '@/features/auth/login';
 
 const DashboardPage = lazy(() => import('@/features/admin/dashboard/DashboardPage'));
 const SellOrderPage = lazy(() => import('@/features/admin/sell/pages/sell-order'));
 const SellSalePage = lazy(() => import('@/features/admin/sell/pages/sell-sale'));
 const SellPosPage = lazy(() => import('@/features/admin/sell/pages/sell-pos'));
 const CustomerPage = lazy(() => import('@/features/admin/customer/CustomerPage'));
-const Login = lazy(() => import('@/features/auth/login'));
 const NoMatch = lazy(() => import('@/features/auth/no-match'));
 
 const routes: RouteObject[] = [

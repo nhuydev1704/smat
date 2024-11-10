@@ -1,6 +1,6 @@
 import 'dayjs/locale/vi';
 
-import { ProConfigProvider } from '@ant-design/pro-components';
+import { enUSIntl, ProConfigProvider, viVNIntl } from '@ant-design/pro-components';
 import { ConfigProvider } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import viVN from 'antd/es/locale/vi_VN';
@@ -42,19 +42,27 @@ function App() {
         }
     };
 
+    const getProLocale = () => {
+        if (locale === 'en_US') {
+            return enUSIntl;
+        } else if (locale === 'vi_VN') {
+            return viVNIntl;
+        }
+    };
+
     return (
         <div
-            id="test-pro-layout"
+            id="pro-layout"
             style={{
                 height: '100vh',
                 overflow: 'auto',
             }}
         >
-            <ProConfigProvider hashed={false}>
+            <ProConfigProvider intl={getProLocale()} hashed={false}>
                 <ConfigProvider
                     locale={getAntdLocale()}
                     getTargetContainer={() => {
-                        return document.getElementById('test-pro-layout') || document.body;
+                        return document.getElementById('pro-layout') || document.body;
                     }}
                 >
                     <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
