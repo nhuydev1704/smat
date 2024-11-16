@@ -70,9 +70,13 @@ export default function PrivateLayout() {
                     paddingBlockPageContainerContent: 20,
                     paddingInlinePageContainerContent: 20,
                 },
-                // sider: {
-                //     colorBgMenuItemSelected: '#07327D',
-                // },
+                sider: {
+                    // colorTextMenuSelected: '#1677ff',
+                    // colorBgMenuItemSelected: '#07327D',
+                    // colorTextSubMenuSelected: 'blue',
+                    // colorTextMenuSelected: '#fff',
+                    // displaySiderCollapsed: 'none',an
+                },
             }}
             avatarProps={{
                 src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
