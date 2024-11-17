@@ -38,7 +38,7 @@ AxiosClient.interceptors.response.use(
     (response: AxiosResponse) => {
         if (response && response.data) {
             // cover response to camelCase
-            return response.data;
+            return response;
         }
 
         return response;

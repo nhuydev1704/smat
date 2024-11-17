@@ -1,56 +1,43 @@
-import { ProCard, ProForm, ProFormDateTimePicker, ProFormText } from '@ant-design/pro-components';
+import { useRouter } from '@/hooks/userRouter';
+import { ProFormDatePicker, ProFormText, QueryFilter } from '@ant-design/pro-components';
+import React from 'react';
 
 const Filter = () => {
+    const { searchParams, setSearchParams } = useRouter();
+
     return (
-        <ProForm
-            grid
-            colProps={{ span: 12 }}
-            submitter={false}
-            onFinish={async () => {
-                return true;
+        <QueryFilter
+            split
+            syncToUrl={false}
+            onFinish={async (values) => {
+                setSearchParams(values);
             }}
-            syncToUrl={(values, type) => {
-                if (type === 'get') {
-                    return {
-                        ...values,
-                        created_at: [values.startTime, values.endTime],
-                    };
-                }
-                return values;
+            onReset={(values) => {
+                setSearchParams(values);
             }}
+            labelWidth={0}
+            searchGutter={[8, 8]}
+            style={{
+                padding: 0,
+            }}
+            submitter={{
+                searchConfig: {
+                    resetText: 'Reset',
+                },
+            }}
+            labelCol={{
+                span: 0,
+            }}
+            initialValues={searchParams}
         >
-            <ProForm.Group>
-                <ProFormDateTimePicker
-                    formItemProps={{
-                        style: {
-                            marginBottom: 0,
-                        },
-                    }}
-                    name="orderTime"
-                    fieldProps={{
-                        style: {
-                            width: '100%',
-                            marginBottom: 0,
-                        },
-                    }}
-                />
-                <ProFormText
-                    formItemProps={{
-                        style: {
-                            marginBottom: 0,
-                        },
-                    }}
-                    fieldProps={{
-                        style: {
-                            width: '100%',
-                        },
-                    }}
-                    disabled
-                    name="pay"
-                />
-            </ProForm.Group>
-        </ProForm>
+            <ProFormText name="name" />
+            <ProFormDatePicker name="createDate" />
+            <ProFormText name="status" />
+            <ProFormDatePicker name="replyDate" />
+            <ProFormDatePicker name="startDate" />
+            <ProFormDatePicker name="endDate" />
+        </QueryFilter>
     );
 };
 
-export default Filter;
+export default React.memo(Filter);

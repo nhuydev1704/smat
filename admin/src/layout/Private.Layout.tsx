@@ -159,7 +159,7 @@ export default function PrivateLayout() {
                 onSettingChange={(changeSetting) => {
                     setSetting(changeSetting);
                 }}
-                disableUrlParams={false}
+                disableUrlParams
             />
         </ProLayout>
     );

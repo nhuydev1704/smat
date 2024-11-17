@@ -58,11 +58,18 @@ function App() {
                 overflow: 'auto',
             }}
         >
-            <ProConfigProvider intl={getProLocale()} hashed={false}>
+            <ProConfigProvider intl={getProLocale()} hashed={false} autoClearCache>
                 <ConfigProvider
                     locale={getAntdLocale()}
                     getTargetContainer={() => {
                         return document.getElementById('pro-layout') || document.body;
+                    }}
+                    theme={{
+                        components: {
+                            Form: {
+                                itemMarginBottom: 16,
+                            },
+                        },
                     }}
                 >
                     <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>

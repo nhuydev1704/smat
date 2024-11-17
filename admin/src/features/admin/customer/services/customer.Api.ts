@@ -5,14 +5,20 @@ import {
     addCustomer as addCustomerAction,
     updateCustomer as updateCustomerAction,
     deleteCustomer as deleteCustomerAction,
-} from './Customer.Slice';
+} from './customer.Slice';
 import AxiosClient from '@/apis/AxiosClient';
 
-export const useFetchCustomers = (): UseQueryResult<Customer[], Error> =>
+export const useFetchCustomers = (query: any): UseQueryResult<{ data: Customer[]; total: number }, Error> =>
     useQuery({
-        queryKey: ['customer'],
-        queryFn: async (): Promise<Customer[]> => {
-            const response = await AxiosClient.get('/issues');
+        queryKey: ['customer', query],
+        queryFn: async (): Promise<{ data: Customer[]; total: number }> => {
+            const response = await AxiosClient.get('/issues', {
+                params: {
+                    ...query,
+                    limit: 12,
+                    pageSize: 12,
+                },
+            });
             return response.data;
         },
         staleTime: 5 * 60 * 1000, // Cache for 5 minutes (default: 0)

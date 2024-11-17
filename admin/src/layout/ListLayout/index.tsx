@@ -1,8 +1,8 @@
+import { useRouter } from '@/hooks/userRouter';
 import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns, ProFormInstance } from '@ant-design/pro-components';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable, TableDropdown } from '@ant-design/pro-components';
 import { Button, Divider, Flex, Grid, Space, Tag, theme, Typography } from 'antd';
-import axios from 'axios';
 import React, { useRef } from 'react';
 import Filter from './Filter';
 
@@ -31,6 +31,7 @@ const columns: ProColumns<GithubIssueItem>[] = [
     {
         title: 'Tiêu đề',
         dataIndex: 'title',
+        sorter: true,
     },
     {
         disable: true,
@@ -91,24 +92,33 @@ interface IListLayout extends React.ComponentProps<'div'> {
     };
     listHeader?: React.ReactNode;
     table: {
+        dataSource: any;
+        total?: number;
+        pageSize?: number;
+        // table config
         toolBarCustom?: React.ReactNode[];
         fullScreen?: boolean;
         density?: boolean;
         tablePersistenceKey?: string;
     };
+    loading: boolean;
 }
 
-const ListLayout: React.FC<IListLayout> = ({ header, listHeader, table = {} }) => {
+const ListLayout: React.FC<IListLayout> = ({ header, listHeader, table = { dataSource: [], total: 0 }, loading }) => {
     const { title, description } = header;
     const {
         toolBarCustom = [],
         fullScreen = true,
         density = true,
         tablePersistenceKey = 'pro-table-singe-demos',
+        dataSource,
+        total,
+        pageSize = 12,
     } = table;
 
     const actionRef = useRef<ActionType>();
-    const formRef = useRef<ProFormInstance>();
+    const { searchParams, setSearchParams } = useRouter();
+    console.log('🚀 ~ searchParams:', searchParams);
 
     const { useToken } = theme;
     const { useBreakpoint } = Grid;
@@ -155,24 +165,18 @@ const ListLayout: React.FC<IListLayout> = ({ header, listHeader, table = {} }) =
                     {listHeader}
 
                     <ProTable<GithubIssueItem>
+                        manualRequest
+                        rowKey="id"
+                        dateFormatter="string"
+                        cardBordered
+                        search={false}
+                        headerTitle={<div style={{ fontWeight: '600' }}>Danh sách</div>}
+                        loading={loading}
                         columns={columns}
+                        dataSource={dataSource}
                         actionRef={actionRef}
-                        formRef={formRef}
-                        request={async (params, sort, filter) => {
-                            console.log('🚀 ~ request={ ~ params:', params);
-                            console.log('🚀 ~ request={ ~ filter:', filter);
-                            console.log('sort', sort);
-                            return axios<{
-                                data: GithubIssueItem[];
-                            }>('https://proapi.azurewebsites.net/github/issues', {
-                                params,
-                            }).then((response) => {
-                                return {
-                                    data: response.data.data,
-                                    success: true,
-                                    total: response.data.total,
-                                };
-                            });
+                        form={{
+                            syncToUrl: false,
                         }}
                         columnsState={{
                             persistenceKey: tablePersistenceKey,
@@ -211,17 +215,14 @@ const ListLayout: React.FC<IListLayout> = ({ header, listHeader, table = {} }) =
                             fullScreen,
                         }}
                         pagination={{
-                            pageSize: 12,
+                            pageSize,
+                            current: (searchParams?.page as any) || 1,
+                            total,
                             showQuickJumper: true,
                             size: 'default',
                             hideOnSinglePage: true,
-                            onChange: (page) => console.log(page),
+                            onChange: (page) => setSearchParams({ ...searchParams, page }),
                         }}
-                        headerTitle={<div style={{ fontWeight: '600' }}>Danh sách</div>}
-                        rowKey="id"
-                        dateFormatter="string"
-                        cardBordered
-                        search={false}
                     />
                 </Flex>
             </div>
