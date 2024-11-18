@@ -4,4 +4,5 @@ export const viVN_menu = {
     'app.menu.order': 'Đơn hàng',
     'app.menu.pos': 'POS',
     'app.menu.sale': 'Chương trình bán hàng',
+    'app.menu.customer': 'Khách hàng',
 };

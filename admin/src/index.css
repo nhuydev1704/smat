@@ -58,3 +58,7 @@ ul.ant-dropdown-menu.ant-dropdown-menu-root {
 	color: black !important;
 	background-color: #06327d17;
 }
+
+.ant-modal .ant-modal-header {
+	margin-bottom: 16px;
+}

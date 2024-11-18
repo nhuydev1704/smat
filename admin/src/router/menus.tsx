@@ -34,11 +34,12 @@ const menus: MenuDataItem[] = [
         ],
     },
 
-    // {
-    //     path: '/customer',
-    //     name: 'Khách hàng',
-    //     icon: <ChromeFilled />,
-    // },
+    {
+        path: '/customer',
+        name: 'Khách hàng',
+        locale: 'app.menu.customer',
+        icon: <ChromeFilled />,
+    },
 ];
 
 // [
