@@ -3,13 +3,16 @@ import { devtools } from 'zustand/middleware';
 
 import { getLocale, getToken, setLocale, setToken } from '@/helpers/storage';
 import { Locale } from '@/locales/type';
+import { ProSettings } from '@ant-design/pro-components';
 
 // Define the shape of the store
 type TAppStore = {
+    settings: ProSettings;
     token: string | undefined | null;
     locale: Locale;
     loading: boolean;
     currentUser: { id: string; name: string } | undefined;
+    setSettings: (setting: ProSettings) => void;
     setToken: (token: string | undefined | null) => void;
     setLocale: (locale: Locale) => void;
     init: () => void;
@@ -18,10 +21,15 @@ type TAppStore = {
 
 // Initial state
 const initialState: TAppStore = {
+    settings: {
+        fixSiderbar: true,
+        layout: 'mix',
+    },
     token: getToken() ?? '',
     locale: getLocale() ?? 'vi_VN',
     loading: false,
     currentUser: undefined,
+    setSettings: () => {},
     setToken: () => {},
     setLocale: () => {},
     init: () => {},
@@ -33,6 +41,9 @@ const actions = (set: any, get: any) => ({
     setToken: (token: string | undefined | null) => {
         setToken(token ?? '');
         set({ token }, false, 'setToken');
+    },
+    setSettings: (settings: ProSettings) => {
+        set({ settings }, false, 'setSetting');
     },
     setLocale: (locale: Locale) => {
         setLocale(locale ?? '');

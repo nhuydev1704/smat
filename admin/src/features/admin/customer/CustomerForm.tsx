@@ -66,6 +66,20 @@ const CustomerForm = ({ open, onOpenChange }: { open: boolean; onOpenChange: (op
 
                 <ProFormText width="md" name="company" label="Tên công ty" placeholder="Nhập tên công ty" />
             </ProForm.Group>
+            <ProForm.Group>
+                <ProFormText
+                    width="md"
+                    name="name"
+                    label="Họ tên"
+                    tooltip="Tối đa 24 ký tự"
+                    placeholder="Nhập họ tên"
+                    required
+                    rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
+                />
+
+                <ProFormText width="md" name="company" label="Tên công ty" placeholder="Nhập tên công ty" />
+                <ProFormText width="md" name="company" label="Tên công ty" placeholder="Nhập tên công ty" />
+            </ProForm.Group>
         </ModalForm>
     );
 };

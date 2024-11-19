@@ -4,22 +4,21 @@ import { enUSIntl, ProConfigProvider, viVNIntl } from '@ant-design/pro-component
 import { ConfigProvider } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import viVN from 'antd/es/locale/vi_VN';
+import dayjs from 'dayjs';
+import { useEffect } from 'react';
+import { IntlProvider } from 'react-intl';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useReloadWhenTokenChange } from './hooks/useStorageChange';
+import { localeConfig } from './locales';
 import './reset.css';
 import routes from './router/routes';
-import { IntlProvider } from 'react-intl';
 import useAppStore from './store/app';
-import { localeConfig } from './locales';
-import { useEffect } from 'react';
-import dayjs from 'dayjs';
 
 const router = createBrowserRouter(routes);
 
 function App() {
     useReloadWhenTokenChange();
-    const { locale } = useAppStore();
-    console.log('🚀 ~ App ~ locale:', locale);
+    const { locale, settings } = useAppStore();
 
     useEffect(() => {
         if (locale === 'en_US') {
@@ -58,7 +57,12 @@ function App() {
                 overflow: 'auto',
             }}
         >
-            <ProConfigProvider intl={getProLocale()} hashed={false} autoClearCache>
+            <ProConfigProvider
+                dark={settings.navTheme === 'realDark'}
+                intl={getProLocale()}
+                hashed={false}
+                autoClearCache
+            >
                 <ConfigProvider
                     locale={getAntdLocale()}
                     getTargetContainer={() => {

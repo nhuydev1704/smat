@@ -3,8 +3,8 @@ import { MENUS_HEADER } from '@/router/menus-header';
 import useAppStore from '@/store/app';
 import { InfoCircleFilled, LogoutOutlined, QuestionCircleFilled } from '@ant-design/icons';
 import type { ProSettings } from '@ant-design/pro-components';
-import { getMenuData, ProCard, ProLayout, SettingDrawer } from '@ant-design/pro-components';
-import { Dropdown, Flex, Space } from 'antd';
+import { getMenuData, ProCard, ProLayout, SettingDrawer, useToken } from '@ant-design/pro-components';
+import { Dropdown, Flex, Space, theme } from 'antd';
 import { useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SelectLang } from '../components/lang/SelectLang';
@@ -15,16 +15,13 @@ import { useLocale } from '@/locales';
 export default function PrivateLayout() {
     const [collapsed, setCollapsed] = useState(false);
 
-    const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
-        fixSiderbar: true,
-        layout: 'mix',
-        // splitMenus: true,
-    });
+    const { token } = useToken();
+
     const { formatMessage } = useLocale();
 
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const appStore = useAppStore();
+    const { settings, setSettings, reset } = useAppStore();
 
     if (typeof document === 'undefined') {
         return <div />;
@@ -59,23 +56,20 @@ export default function PrivateLayout() {
                 header: {
                     colorBgMenuItemSelected: 'rgba(0,0,0,0.04)',
                     heightLayoutHeader: 46,
-                    colorBgHeader: settings?.navTheme === 'realDark' ? '#000' : '#06327d',
+                    // colorBgHeader: settings?.navTheme === 'realDark' ? '#000' : '#06327d',
+                    colorBgHeader: '#06327d',
                     colorHeaderTitle: '#fff',
-                    colorTextRightActionsItem: '#fff',
-                    colorBgScrollHeader: settings?.navTheme === 'realDark' ? '#000' : '#06327d',
+                    colorTextRightActionsItem: token.colorWhite,
+                    colorBgScrollHeader: '#06327d',
                 },
-                bgLayout: settings?.navTheme === 'realDark' ? '#000' : '#fff',
                 pageContainer: {
-                    colorBgPageContainer: settings?.navTheme === 'realDark' ? '#000' : '#f1f1f1',
+                    colorBgPageContainer: token.colorBgLayout,
                     paddingBlockPageContainerContent: 20,
                     paddingInlinePageContainerContent: 20,
                 },
                 sider: {
-                    // colorTextMenuSelected: '#1677ff',
-                    // colorBgMenuItemSelected: '#07327D',
-                    // colorTextSubMenuSelected: 'blue',
-                    // colorTextMenuSelected: '#fff',
-                    // displaySiderCollapsed: 'none',an
+                    colorBgMenuItemSelected: token.colorPrimary,
+                    colorTextMenuSelected: token.colorWhite,
                 },
             }}
             avatarProps={{
@@ -93,7 +87,7 @@ export default function PrivateLayout() {
                                         label: 'Đăng xuất',
                                         onClick: () => {
                                             navigate('/login');
-                                            appStore.reset();
+                                            reset();
                                         },
                                     },
                                 ],
@@ -137,7 +131,18 @@ export default function PrivateLayout() {
                 return menuDataGet.menuData;
             }}
             menuItemRender={(item, defaultDom) => {
-                return <NavLink to={item.path!}>{defaultDom}</NavLink>;
+                console.log('🚀 ~ PrivateLayout ~ item:', item);
+                return (
+                    <NavLink
+                        to={item.path!}
+                        style={{
+                            display: 'flex',
+                            gap: '10px',
+                        }}
+                    >
+                        {item.pro_layout_parentKeys.length ? item.icon : ''} {defaultDom}
+                    </NavLink>
+                );
             }}
             {...settings}
         >
@@ -149,6 +154,7 @@ export default function PrivateLayout() {
                 <Outlet />
             </ProCard>
             <SettingDrawer
+                themeOnly
                 pathname={pathname}
                 enableDarkTheme
                 settings={settings}
@@ -157,7 +163,8 @@ export default function PrivateLayout() {
                     return document.getElementById('test-pro-layout');
                 }}
                 onSettingChange={(changeSetting) => {
-                    setSetting(changeSetting);
+                    console.log('🚀 ~ PrivateLayout ~ changeSetting:', changeSetting);
+                    setSettings(changeSetting);
                 }}
                 disableUrlParams
             />

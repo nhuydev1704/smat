@@ -54,9 +54,15 @@ ul.ant-dropdown-menu.ant-dropdown-menu-root {
   background-color: transparent !important;
 }
 
-.ant-menu-submenu-selected .ant-menu-submenu-title {
+/* .ant-menu-submenu-selected .ant-menu-submenu-title {
 	color: black !important;
 	background-color: #06327d17;
+} */
+
+.ant-pro-sider-menu .ant-menu-item-selected, 
+.ant-pro-sider-menu .ant-menu-item:hover { 
+  background-color: #1890ff !important;
+  color: #fff;
 }
 
 .ant-modal .ant-modal-header {
