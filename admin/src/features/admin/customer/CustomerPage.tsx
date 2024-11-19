@@ -2,7 +2,7 @@ import { useRouter } from '@/hooks/userRouter';
 import ListLayout from '@/layout/ListLayout';
 import { ProCard, ProColumns, TableDropdown } from '@ant-design/pro-components';
 import { useFetchCustomers } from '../customer/services/customer.Api';
-import { Customer } from '../customer/services/customer.Slice';
+import { Customer } from './services/customer.Zustand';
 import AddButton from '@/components/button/AddButton';
 import { useLocale } from '@/locales';
 import CustomerForm from './CustomerForm';

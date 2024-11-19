@@ -59,7 +59,8 @@ AxiosClient.interceptors.response.use(
         }
 
         return {
-            ...error?.response?.data,
+            error: error?.response?.data,
+            data: null,
             status: false,
         };
     }

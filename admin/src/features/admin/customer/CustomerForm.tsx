@@ -1,6 +1,7 @@
 import { ModalForm, ProForm, ProFormText } from '@ant-design/pro-components';
 import { Form, message } from 'antd';
 import React from 'react';
+import { useAddCustomer } from './services/customer.Api';
 
 const waitTime = (time: number = 100) => {
     return new Promise((resolve) => {
@@ -12,7 +13,25 @@ const waitTime = (time: number = 100) => {
 
 const CustomerForm = ({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) => {
     const [form] = Form.useForm<{ name: string; company: string }>();
-    console.log('render form');
+    const addItemMutation = useAddCustomer();
+
+    const [loading, setLoading] = React.useState(false);
+
+    const handleAddItem = async () => {
+        setLoading(true);
+        const newItem = { title: 'New Item' };
+        await waitTime(2000);
+
+        addItemMutation.mutate(newItem, {
+            // onSettled is called regardless of whether the query or mutation was successful or resulted in an error.
+            // It is always called after the request has completed.
+            onSettled: () => {
+                setLoading(false);
+            },
+        });
+        message.success('Gửi thành công');
+        return true;
+    };
 
     return (
         <ModalForm<{
@@ -29,14 +48,10 @@ const CustomerForm = ({ open, onOpenChange }: { open: boolean; onOpenChange: (op
                 onCancel: () => console.log('run'),
             }}
             submitTimeout={2000}
-            onFinish={async (values) => {
-                await waitTime(2000);
-                console.log(values.name);
-                message.success('Gửi thành công');
-                return true;
-            }}
+            onFinish={handleAddItem}
             open={open}
             onOpenChange={onOpenChange}
+            loading={loading}
         >
             <ProForm.Group>
                 <ProFormText
