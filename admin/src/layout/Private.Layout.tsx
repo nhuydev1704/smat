@@ -68,8 +68,11 @@ export default function PrivateLayout() {
                     paddingInlinePageContainerContent: 20,
                 },
                 sider: {
-                    colorBgMenuItemSelected: token.colorPrimary,
-                    colorTextMenuSelected: token.colorWhite,
+                    colorMenuBackground: token.colorBgContainer,
+                    colorMenuItemDivider: '#dfdfdf',
+                    colorTextMenu: '#595959',
+                    colorTextMenuSelected: 'rgba(42,122,251,1)',
+                    colorBgMenuItemSelected: 'rgba(230,243,254,1)',
                 },
             }}
             avatarProps={{
