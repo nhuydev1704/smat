@@ -1,12 +1,15 @@
+import AddButton from '@/components/button/AddButton';
 import { useRouter } from '@/hooks/userRouter';
 import ListLayout from '@/layout/ListLayout';
-import { ProCard, ProColumns, TableDropdown } from '@ant-design/pro-components';
-import { useFetchCustomers } from '../customer/services/customer.Api';
-import { Customer } from './services/customer.Zustand';
-import AddButton from '@/components/button/AddButton';
 import { useLocale } from '@/locales';
-import CustomerForm from './CustomerForm';
+import { ProColumns, TableDropdown } from '@ant-design/pro-components';
 import React from 'react';
+import { useFetchCustomers } from '../customer/services/customer.Api';
+import CustomerChart from './charts';
+import CustomerForm from './CustomerForm';
+import { Customer } from './services/customer.Zustand';
+import { Button } from 'antd';
+import { LineChartOutlined } from '@ant-design/icons';
 
 const columns: ProColumns<Customer>[] = [
     {
@@ -58,9 +61,10 @@ const columns: ProColumns<Customer>[] = [
 
 const CustomerPage = () => {
     const { formatMessage } = useLocale();
-
     const { searchParams } = useRouter();
 
+    // state
+    const [showChart, setShowChart] = React.useState(true);
     const [openForm, setOpenForm] = React.useState(false);
 
     const {
@@ -88,9 +92,20 @@ const CustomerPage = () => {
                     onReload: refetch,
                     toolBarCustom: [<AddButton onClick={() => setOpenForm(true)} />],
                 }}
-                listHeader={<ProCard bordered>test</ProCard>}
+                listHeader={
+                    <div className={`customer-chart-wrapper ${showChart ? 'show' : 'hide'}`}>
+                        <CustomerChart />
+                    </div>
+                }
                 header={{
                     title: formatMessage({ id: 'app.menu.customer' }),
+                    extra: (
+                        <Button
+                            onClick={() => setShowChart(!showChart)}
+                            type={showChart ? 'primary' : 'default'}
+                            icon={<LineChartOutlined />}
+                        />
+                    ),
                 }}
             />
             <CustomerForm open={openForm} onOpenChange={onOpenFormChange} />

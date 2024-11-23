@@ -5,6 +5,7 @@ import { ConfigProvider } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import viVN from 'antd/es/locale/vi_VN';
 import dayjs from 'dayjs';
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -50,12 +51,18 @@ function App() {
     };
 
     return (
-        <div
-            id="pro-layout"
+        <OverlayScrollbarsComponent
             style={{
+                overflowY: 'scroll',
                 height: '100vh',
-                overflow: 'auto',
             }}
+            options={{
+                scrollbars: {
+                    autoHide: 'leave',
+                    clickScroll: true,
+                },
+            }}
+            defer
         >
             <ProConfigProvider
                 dark={settings.navTheme === 'realDark'}
@@ -65,9 +72,6 @@ function App() {
             >
                 <ConfigProvider
                     locale={getAntdLocale()}
-                    getTargetContainer={() => {
-                        return document.getElementById('pro-layout') || document.body;
-                    }}
                     theme={{
                         components: {
                             Form: {
@@ -81,7 +85,7 @@ function App() {
                     </IntlProvider>
                 </ConfigProvider>
             </ProConfigProvider>
-        </div>
+        </OverlayScrollbarsComponent>
     );
 }
 

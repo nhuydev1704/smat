@@ -13,6 +13,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     padding: 20px;
+    height: 90vh;
 `;
 
 function Spin({ delay }: { delay: number }) {

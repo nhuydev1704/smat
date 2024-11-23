@@ -1,16 +1,15 @@
+import logo from '@/assets/logo.png';
+import { useLocale } from '@/locales';
 import menus from '@/router/menus';
 import { MENUS_HEADER } from '@/router/menus-header';
 import useAppStore from '@/store/app';
 import { InfoCircleFilled, LogoutOutlined, QuestionCircleFilled } from '@ant-design/icons';
-import type { ProSettings } from '@ant-design/pro-components';
-import { getMenuData, ProCard, ProLayout, SettingDrawer, useToken } from '@ant-design/pro-components';
-import { Dropdown, Flex, Space, theme } from 'antd';
+import { getMenuData, ProLayout, SettingDrawer, useToken } from '@ant-design/pro-components';
+import { Dropdown, Flex, Space } from 'antd';
 import { useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SelectLang } from '../components/lang/SelectLang';
 import { HeaderMenuItemStyled, HeaderMenuSidebarLogoStyled } from './style';
-import logo from '@/assets/logo.png';
-import { useLocale } from '@/locales';
 
 export default function PrivateLayout() {
     const [collapsed, setCollapsed] = useState(false);
@@ -68,18 +67,18 @@ export default function PrivateLayout() {
                     paddingInlinePageContainerContent: 20,
                 },
                 sider: {
-                    colorMenuBackground: token.colorBgContainer,
-                    colorMenuItemDivider: '#dfdfdf',
-                    colorTextMenu: '#595959',
-                    colorTextMenuSelected: 'rgba(42,122,251,1)',
-                    colorBgMenuItemSelected: 'rgba(230,243,254,1)',
+                    colorMenuBackground: token.colorBgContainer, // Giữ lại nếu màu nền hiện tại phù hợp với toàn bộ giao diện.
+                    colorMenuItemDivider: '#e8e8e8', // Làm sáng màu divider để không quá nổi bật.
+                    colorTextMenu: '#4a4a4a', // Màu chữ trong menu nên tối hơn một chút, gần màu trung tính.
+                    colorTextMenuSelected: '#2a7afb', // Màu chữ của mục được chọn nên có độ sáng và nổi bật, giữ xanh dương với tone mạnh.
+                    colorBgMenuItemSelected: '#d6eaff', // Màu nền của mục được chọn nên nhạt để làm nổi bật nhưng không quá gắt.
                 },
             }}
             avatarProps={{
                 src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                 size: 'small',
                 title: '七妮妮',
-                render: (props, dom) => {
+                render: (_, dom) => {
                     return (
                         <Dropdown
                             menu={{
@@ -134,7 +133,6 @@ export default function PrivateLayout() {
                 return menuDataGet.menuData;
             }}
             menuItemRender={(item, defaultDom) => {
-                console.log('🚀 ~ PrivateLayout ~ item:', item);
                 return (
                     <NavLink
                         to={item.path!}
@@ -149,22 +147,14 @@ export default function PrivateLayout() {
             }}
             {...settings}
         >
-            <ProCard
-                style={{
-                    minHeight: 'calc(100vh - 85px)',
-                }}
-            >
+            <div style={{ zIndex: 0 }}>
                 <Outlet />
-            </ProCard>
+            </div>
             <SettingDrawer
                 themeOnly
                 pathname={pathname}
                 enableDarkTheme
                 settings={settings}
-                getContainer={(e: any) => {
-                    if (typeof window === 'undefined') return e;
-                    return document.getElementById('test-pro-layout');
-                }}
                 onSettingChange={(changeSetting) => {
                     console.log('🚀 ~ PrivateLayout ~ changeSetting:', changeSetting);
                     setSettings(changeSetting);

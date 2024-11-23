@@ -2,7 +2,7 @@ import { useRouter } from '@/hooks/userRouter';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { QueryObserverResult } from '@tanstack/react-query';
-import { Divider, Flex, Grid, Space, theme, Typography } from 'antd';
+import { Divider, Flex, Space, theme, Typography } from 'antd';
 import React, { useRef } from 'react';
 import Filter from './Filter';
 
@@ -10,6 +10,7 @@ interface IListLayoutProps<T extends Record<string, any>> {
     header: {
         title: string;
         description?: string;
+        extra?: React.ReactNode;
     };
     listHeader?: React.ReactNode;
     table: {
@@ -19,6 +20,11 @@ interface IListLayoutProps<T extends Record<string, any>> {
         total?: number;
         pageSize?: number;
         onReload?: () => Promise<QueryObserverResult<any, unknown>>;
+
+        // select rows
+        rowSelection?: {
+            onChange: (selectedRowKeys: React.Key[], selectedRows: T[]) => void;
+        };
         // config
         toolBarCustom?: React.ReactNode[];
         fullScreen?: boolean;
@@ -35,7 +41,7 @@ const ListLayout = <T extends Record<string, any>>({
     table = { dataSource: [], total: 0 },
     loading,
 }: IListLayoutProps<T>) => {
-    const { title, description } = header;
+    const { title, description, extra } = header;
     const {
         toolBarCustom = [],
         fullScreen = true,
@@ -47,17 +53,16 @@ const ListLayout = <T extends Record<string, any>>({
         pageSize = 12,
         title: tableTitle = 'Danh sách',
         onReload,
+        rowSelection,
     } = table;
 
     const actionRef = useRef<ActionType>();
     const { searchParams, setSearchParams } = useRouter();
 
     const { useToken } = theme;
-    const { useBreakpoint } = Grid;
     const { Text } = Typography;
 
     const { token } = useToken();
-    const screens = useBreakpoint();
 
     console.log('render table');
 
@@ -67,7 +72,6 @@ const ListLayout = <T extends Record<string, any>>({
         },
         header: {
             alignContent: 'center',
-            alignItems: screens.md ? 'flex-end' : 'flex-start',
             justifyContent: 'space-between',
             width: '100%',
         },
@@ -88,11 +92,12 @@ const ListLayout = <T extends Record<string, any>>({
     return (
         <div>
             <div style={styles.container}>
-                <Space size="middle" direction={screens.md ? 'horizontal' : 'vertical'} style={styles.header}>
+                <Space size="middle" style={styles.header}>
                     <Space style={styles.textWrapper} direction="vertical" size={4}>
                         {title && <Text style={styles.title}>{title}</Text>}
                         {description && <Text style={styles.paragraph}>{description}</Text>}
                     </Space>
+                    {extra}
                 </Space>
                 <Divider style={{ margin: '10px 0 12px 0' }} />
                 <Flex vertical gap={10}>
@@ -146,6 +151,7 @@ const ListLayout = <T extends Record<string, any>>({
                             hideOnSinglePage: true,
                             onChange: (page) => setSearchParams({ ...searchParams, page }),
                         }}
+                        rowSelection={rowSelection}
                     />
                 </Flex>
             </div>
