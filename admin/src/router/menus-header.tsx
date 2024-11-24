@@ -1,17 +1,21 @@
+import IconAddVoucher from '@/assets/icons/IconAddVoucher';
+import IconGuide from '@/assets/icons/IconGuide';
+import IconHelp from '@/assets/icons/IconHelp';
+
 export const MENUS_HEADER = [
     {
         title: 'Hướng dẫn',
         path: '/',
-        // icon: <IconQuestionMark stroke={2} size="20px" />,
+        icon: <IconGuide />,
     },
     {
         title: 'Hỗ trợ',
         path: '/help',
-        // icon: <IconProgressHelp stroke={2} size="20px" />,
+        icon: <IconHelp />,
     },
     {
         title: 'Tạo eVoucher',
         path: '/voucher',
-        // icon: <IconTicket stroke={2} size="20px" />,
+        icon: <IconAddVoucher />,
     },
 ];

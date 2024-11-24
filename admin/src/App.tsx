@@ -1,11 +1,10 @@
 import 'dayjs/locale/vi';
 
-import { enUSIntl, ProConfigProvider, viVNIntl } from '@ant-design/pro-components';
-import { ConfigProvider } from 'antd';
+import { enUSIntl, ProConfigProvider, proTheme, viVNIntl } from '@ant-design/pro-components';
+import { ConfigProvider, theme } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import viVN from 'antd/es/locale/vi_VN';
 import dayjs from 'dayjs';
-import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -14,12 +13,14 @@ import { localeConfig } from './locales';
 import './reset.css';
 import routes from './router/routes';
 import useAppStore from './store/app';
+import { CustomScroll } from './layout/ScrollWrapper';
 
 const router = createBrowserRouter(routes);
 
 function App() {
     useReloadWhenTokenChange();
     const { locale, settings } = useAppStore();
+    console.log('🚀 ~ App ~ settings:', settings);
 
     useEffect(() => {
         if (locale === 'en_US') {
@@ -51,25 +52,8 @@ function App() {
     };
 
     return (
-        <OverlayScrollbarsComponent
-            style={{
-                overflowY: 'scroll',
-                height: '100vh',
-            }}
-            options={{
-                scrollbars: {
-                    autoHide: 'leave',
-                    clickScroll: true,
-                },
-            }}
-            defer
-        >
-            <ProConfigProvider
-                dark={settings.navTheme === 'realDark'}
-                intl={getProLocale()}
-                hashed={false}
-                autoClearCache
-            >
+        <CustomScroll heightRelativeToParent="100vh">
+            <ProConfigProvider dark={settings.navTheme === 'realDark'} intl={getProLocale()} hashed={false}>
                 <ConfigProvider
                     locale={getAntdLocale()}
                     theme={{
@@ -78,6 +62,7 @@ function App() {
                                 itemMarginBottom: 16,
                             },
                         },
+                        inherit: true,
                     }}
                 >
                     <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
@@ -85,7 +70,7 @@ function App() {
                     </IntlProvider>
                 </ConfigProvider>
             </ProConfigProvider>
-        </OverlayScrollbarsComponent>
+        </CustomScroll>
     );
 }
 

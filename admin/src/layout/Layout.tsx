@@ -1,9 +1,9 @@
 import { isOpenPage } from '@/helpers/auth';
 import useAppStore from '@/store/app';
-import { matchPath, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import BlankLayout from './BlankLayout';
-import { useEffect } from 'react';
 import { Button, Result, Spin } from 'antd';
+import { useEffect } from 'react';
+import { matchPath, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import AuthLayout from './AuthLayout';
 import PrivateLayout from './Private.Layout';
 
 const isBlankLayout = (pathname: string) =>
@@ -40,7 +40,7 @@ function InitDataLayout() {
         );
     }
 
-    return isBlankLayout(pathname) ? <BlankLayout /> : <PrivateLayout />;
+    return isBlankLayout(pathname) ? <AuthLayout /> : <PrivateLayout />;
 }
 
 export default function Layout() {
@@ -49,7 +49,7 @@ export default function Layout() {
     const appStore = useAppStore();
 
     if (isOpenPage(pathname)) {
-        return <BlankLayout />;
+        return <AuthLayout />;
     }
 
     if (!appStore.token) {

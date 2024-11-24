@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SelectLang } from '../components/lang/SelectLang';
 import { HeaderMenuItemStyled, HeaderMenuSidebarLogoStyled } from './style';
+import IconBell from '@/assets/icons/IconBell';
 
 export default function PrivateLayout() {
     const [collapsed, setCollapsed] = useState(false);
@@ -21,6 +22,7 @@ export default function PrivateLayout() {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const { settings, setSettings, reset } = useAppStore();
+    console.log('🚀 ~ PrivateLayout ~ settings:', settings);
 
     if (typeof document === 'undefined') {
         return <div />;
@@ -54,7 +56,7 @@ export default function PrivateLayout() {
             token={{
                 header: {
                     colorBgMenuItemSelected: 'rgba(0,0,0,0.04)',
-                    heightLayoutHeader: 46,
+                    heightLayoutHeader: 40,
                     // colorBgHeader: settings?.navTheme === 'realDark' ? '#000' : '#06327d',
                     colorBgHeader: '#06327d',
                     colorHeaderTitle: '#fff',
@@ -77,7 +79,8 @@ export default function PrivateLayout() {
             avatarProps={{
                 src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                 size: 'small',
-                title: '七妮妮',
+                title: 'Nguyễn Như Ý 2',
+
                 render: (_, dom) => {
                     return (
                         <Dropdown
@@ -103,11 +106,7 @@ export default function PrivateLayout() {
             actionsRender={(props) => {
                 if (props.isMobile) return [];
                 if (typeof window === 'undefined') return [];
-                return [
-                    <InfoCircleFilled key="InfoCircleFilled" />,
-                    <QuestionCircleFilled key="QuestionCircleFilled" />,
-                    <SelectLang key="SelectLang" />,
-                ];
+                return [<IconBell key="IconBell" />, <SelectLang key="SelectLang" />];
             }}
             headerTitleRender={() => {
                 return (

@@ -17,8 +17,33 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   overflow-y: hidden;
-  height: 100vh; 
+  min-height: 100vh;
 }
+
+
+/* #pro-layout::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+
+#pro-layout::-webkit-scrollbar
+{
+	width: 0;
+}
+
+#pro-layout::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #888;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+} */
 
 ul.ant-dropdown-menu.ant-dropdown-menu-root {
   min-width: 120px;
@@ -28,11 +53,6 @@ ul.ant-dropdown-menu.ant-dropdown-menu-root {
   background-color: transparent !important;
 }
 
-
-/* .ant-menu-submenu-selected .ant-menu-submenu-title {
-	color: black !important;
-	background-color: #06327d17;
-} */
 
 .ant-pro-sider-menu .ant-menu-item-selected, 
 .ant-pro-sider-menu .ant-menu-item:hover { 
@@ -64,7 +84,7 @@ ul.ant-dropdown-menu.ant-dropdown-menu-root {
 .customer-chart-wrapper.show {
     opacity: 1;
     transform: scale(1);
-    max-height: 1000px; /* Set this to a value larger than the expected height */
+    max-height: 200vh; /* Set this to a value larger than the expected height */
 }
 
 .customer-chart-wrapper.hide {

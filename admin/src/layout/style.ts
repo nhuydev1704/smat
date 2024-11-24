@@ -7,7 +7,7 @@ export const HeaderMenuItemStyled = styled.div`
 
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
     transition: all 0.2s;
 
     &:hover {
