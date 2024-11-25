@@ -1,27 +1,27 @@
+import IconBell from '@/assets/icons/IconBell';
 import logo from '@/assets/logo.png';
 import { useLocale } from '@/locales';
 import menus from '@/router/menus';
 import { MENUS_HEADER } from '@/router/menus-header';
 import useAppStore from '@/store/app';
-import { InfoCircleFilled, LogoutOutlined, QuestionCircleFilled } from '@ant-design/icons';
-import { getMenuData, ProLayout, SettingDrawer, useToken } from '@ant-design/pro-components';
-import { Dropdown, Flex, Space } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
+import { getMenuData, ProLayout } from '@ant-design/pro-components';
+import { Dropdown, Flex, Space, theme } from 'antd';
 import { useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { SelectLang } from '../components/lang/SelectLang';
 import { HeaderMenuItemStyled, HeaderMenuSidebarLogoStyled } from './style';
-import IconBell from '@/assets/icons/IconBell';
 
 export default function PrivateLayout() {
     const [collapsed, setCollapsed] = useState(false);
 
-    const { token } = useToken();
+    const { token } = theme.useToken();
 
     const { formatMessage } = useLocale();
 
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const { settings, setSettings, reset } = useAppStore();
+    const { settings, reset } = useAppStore();
     console.log('🚀 ~ PrivateLayout ~ settings:', settings);
 
     if (typeof document === 'undefined') {
@@ -149,7 +149,9 @@ export default function PrivateLayout() {
             <div style={{ zIndex: 0 }}>
                 <Outlet />
             </div>
-            <SettingDrawer
+
+            {/* <ToggleTheme /> */}
+            {/* <SettingDrawer
                 themeOnly
                 pathname={pathname}
                 enableDarkTheme
@@ -157,9 +159,10 @@ export default function PrivateLayout() {
                 onSettingChange={(changeSetting) => {
                     console.log('🚀 ~ PrivateLayout ~ changeSetting:', changeSetting);
                     setSettings(changeSetting);
+                    // toggleAnimationTheme();
                 }}
                 disableUrlParams
-            />
+            /> */}
         </ProLayout>
     );
 }

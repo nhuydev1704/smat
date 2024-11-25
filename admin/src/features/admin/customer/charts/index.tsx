@@ -1,5 +1,5 @@
 import GridLayout from '@/layout/GridLayout';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import CustomerReport from './CustomerReport';
 
 const createChart = (id: string) => ({
@@ -30,10 +30,8 @@ const layouts = {
         { i: '5', x: 0, y: 8, w: 12, h: 2 },
     ],
 };
-
+const charts = [createChart('1'), createChart('2'), createChart('3'), createChart('4'), createChart('5')];
 const CustomerChart = () => {
-    const charts = useMemo(() => layouts.lg.map(({ i }) => createChart(i)), []);
-
     return <GridLayout layouts={layouts} charts={charts} />;
 };
 

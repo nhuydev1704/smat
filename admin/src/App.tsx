@@ -1,6 +1,6 @@
 import 'dayjs/locale/vi';
 
-import { enUSIntl, ProConfigProvider, proTheme, viVNIntl } from '@ant-design/pro-components';
+import { enUSIntl, ProConfigProvider, viVNIntl } from '@ant-design/pro-components';
 import { ConfigProvider, theme } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import viVN from 'antd/es/locale/vi_VN';
@@ -9,18 +9,18 @@ import { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useReloadWhenTokenChange } from './hooks/useStorageChange';
+import { CustomScroll } from './layout/ScrollWrapper';
+import ToggleTheme from './layout/ToggleTheme';
 import { localeConfig } from './locales';
 import './reset.css';
 import routes from './router/routes';
 import useAppStore from './store/app';
-import { CustomScroll } from './layout/ScrollWrapper';
 
 const router = createBrowserRouter(routes);
 
 function App() {
     useReloadWhenTokenChange();
     const { locale, settings } = useAppStore();
-    console.log('🚀 ~ App ~ settings:', settings);
 
     useEffect(() => {
         if (locale === 'en_US') {
@@ -52,25 +52,29 @@ function App() {
     };
 
     return (
-        <CustomScroll heightRelativeToParent="100vh">
-            <ProConfigProvider dark={settings.navTheme === 'realDark'} intl={getProLocale()} hashed={false}>
-                <ConfigProvider
-                    locale={getAntdLocale()}
-                    theme={{
-                        components: {
-                            Form: {
-                                itemMarginBottom: 16,
+        <>
+            <CustomScroll heightRelativeToParent="100vh">
+                <ProConfigProvider intl={getProLocale()} hashed>
+                    <ConfigProvider
+                        locale={getAntdLocale()}
+                        theme={{
+                            components: {
+                                Form: {
+                                    itemMarginBottom: 16,
+                                },
                             },
-                        },
-                        inherit: true,
-                    }}
-                >
-                    <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
-                        <RouterProvider router={router} />
-                    </IntlProvider>
-                </ConfigProvider>
-            </ProConfigProvider>
-        </CustomScroll>
+                            hashed: false,
+                            algorithm: settings.navTheme === 'realDark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
+                        }}
+                    >
+                        <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
+                            <RouterProvider router={router} />
+                        </IntlProvider>
+                    </ConfigProvider>
+                </ProConfigProvider>
+            </CustomScroll>
+            <ToggleTheme />
+        </>
     );
 }
 

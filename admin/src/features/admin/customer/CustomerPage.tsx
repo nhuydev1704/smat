@@ -8,7 +8,7 @@ import { useFetchCustomers } from '../customer/services/customer.Api';
 import CustomerChart from './charts';
 import CustomerForm from './CustomerForm';
 import { Customer } from './services/customer.Zustand';
-import { Button } from 'antd';
+import { Button, Card } from 'antd';
 import { LineChartOutlined } from '@ant-design/icons';
 
 const columns: ProColumns<Customer>[] = [
