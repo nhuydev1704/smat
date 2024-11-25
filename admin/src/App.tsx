@@ -20,7 +20,8 @@ const router = createBrowserRouter(routes);
 
 function App() {
     useReloadWhenTokenChange();
-    const { locale, settings } = useAppStore();
+    const { currentUser, locale, settings } = useAppStore();
+    console.log('🚀 ~ App ~ currentUser:', currentUser);
 
     useEffect(() => {
         if (locale === 'en_US') {
@@ -63,7 +64,7 @@ function App() {
                                     itemMarginBottom: 16,
                                 },
                             },
-                            hashed: false,
+                            hashed: true,
                             algorithm: settings.navTheme === 'realDark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
                         }}
                     >
@@ -73,7 +74,7 @@ function App() {
                     </ConfigProvider>
                 </ProConfigProvider>
             </CustomScroll>
-            <ToggleTheme />
+            {currentUser && <ToggleTheme />}
         </>
     );
 }

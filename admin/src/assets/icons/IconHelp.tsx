@@ -3,14 +3,14 @@ import * as React from 'react';
 const IconHelp: React.FC<React.SVGProps<SVGElement>> = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
         <path
-            stroke="#fff"
+            stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="1.5"
             d="M11.965 15.025v.015M11.965 13.022c-.008-.636.569-.905.999-1.15.523-.29.879-.749.879-1.387 0-.944-.765-1.704-1.704-1.704-.945 0-1.703.76-1.703 1.704"
         ></path>
         <path
-            stroke="#fff"
+            stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="1.5"
@@ -18,7 +18,7 @@ const IconHelp: React.FC<React.SVGProps<SVGElement>> = () => (
             clipRule="evenodd"
         ></path>
         <path
-            stroke="#fff"
+            stroke="currentColor"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth="1.5"

@@ -13,6 +13,9 @@ const CustomerPage = lazy(() => import('@/features/admin/customer/CustomerPage')
 const NoMatch = lazy(() => import('@/features/auth/no-match'));
 const ForgotPassword = lazy(() => import('@/features/auth/forgot-password'));
 
+// voucher
+const VoucherFormPage = lazy(() => import('@/features/admin/voucher/VoucherFormPage'));
+
 const routes: RouteObject[] = [
     {
         Component: Layout,
@@ -25,33 +28,34 @@ const routes: RouteObject[] = [
             {
                 path: '/sell/order',
                 Component: SellOrderPage,
-                caseSensitive: true,
             },
             {
                 path: '/sell/pos',
                 Component: SellPosPage,
-                caseSensitive: true,
             },
             {
                 path: '/sell/sale',
                 Component: SellSalePage,
-                caseSensitive: true,
             },
             {
                 path: '/customer',
                 Component: CustomerPage,
-                caseSensitive: true,
+            },
+            // voucher
+            {
+                path: '/voucher/form',
+                Component: VoucherFormPage,
             },
 
             // auth
             {
                 path: '/login',
-                caseSensitive: true,
+
                 Component: Login,
             },
             {
                 path: '/forgot',
-                caseSensitive: true,
+
                 Component: ForgotPassword,
             },
         ],

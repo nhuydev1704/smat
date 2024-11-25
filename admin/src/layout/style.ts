@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
-export const HeaderMenuItemStyled = styled.div`
-    color: #f1f1f1;
+interface HeaderMenuItemProps {
+    active: boolean;
+}
+
+export const HeaderMenuItemStyled = styled.div<HeaderMenuItemProps>`
+    color: ${(props) => (props.active ? '#fff' : '#ccc')};
+    font-weight: ${(props) => (props.active ? 'bold' : '500')};
     font-size: 13.5px;
     font-weight: 600;
 
@@ -11,7 +16,7 @@ export const HeaderMenuItemStyled = styled.div`
     transition: all 0.2s;
 
     &:hover {
-        opacity: 0.8;
+        color: #fff;
     }
 `;
 

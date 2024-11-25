@@ -65,8 +65,8 @@ export default function PrivateLayout() {
                 },
                 pageContainer: {
                     colorBgPageContainer: token.colorBgLayout,
-                    paddingBlockPageContainerContent: 20,
-                    paddingInlinePageContainerContent: 20,
+                    paddingBlockPageContainerContent: 0,
+                    paddingInlinePageContainerContent: 0,
                 },
                 sider: {
                     colorMenuBackground: token.colorBgContainer, // Giữ lại nếu màu nền hiện tại phù hợp với toàn bộ giao diện.
@@ -114,7 +114,7 @@ export default function PrivateLayout() {
                         {MENUS_HEADER.map((item) => {
                             return (
                                 <NavLink key={item.path} to={item.path}>
-                                    <HeaderMenuItemStyled>
+                                    <HeaderMenuItemStyled active={item.path === pathname}>
                                         {item.icon}
                                         {item.title}
                                     </HeaderMenuItemStyled>
@@ -146,7 +146,7 @@ export default function PrivateLayout() {
             }}
             {...settings}
         >
-            <div style={{ zIndex: 0 }}>
+            <div style={{ zIndex: 0, padding: 20, minHeight: 'calc(100vh - 40px)' }}>
                 <Outlet />
             </div>
 

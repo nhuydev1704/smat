@@ -4,6 +4,7 @@ import { devtools } from 'zustand/middleware';
 import { getLocale, getToken, setLocale, setToken } from '@/helpers/storage';
 import { Locale } from '@/locales/type';
 import { ProSettings } from '@ant-design/pro-components';
+import { theme } from 'antd';
 
 // Define the shape of the store
 type TAppStore = {
@@ -19,12 +20,16 @@ type TAppStore = {
     reset: () => void;
 };
 
+const defaultSettings: ProSettings = {
+    fixSiderbar: true,
+    layout: 'mix',
+    navTheme: 'light',
+    colorPrimary: theme.getDesignToken().colorPrimary,
+};
+
 // Initial state
 const initialState: TAppStore = {
-    settings: {
-        fixSiderbar: true,
-        layout: 'mix',
-    },
+    settings: defaultSettings,
     token: getToken() ?? '',
     locale: getLocale() ?? 'vi_VN',
     loading: false,
@@ -74,7 +79,7 @@ const actions = (set: any, get: any) => ({
     reset: () => {
         const token = '';
         setToken(token);
-        set({ token, currentUser: undefined, loading: false }, false, 'reset');
+        set({ token, currentUser: undefined, loading: false, settings: defaultSettings }, false, 'reset');
     },
 });
 

@@ -48,7 +48,7 @@ const CustomerReport = ({ width, height }: { width: number; height: number }) =>
             yField: 'frequency',
             theme: settings.navTheme === 'realDark' ? 'classicDark' : 'light',
         }),
-        [data, settings.navTheme]
+        [data, settings.navTheme, settings.colorPrimary]
     );
 
     return (

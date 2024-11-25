@@ -5,7 +5,7 @@ import IconHelp from '@/assets/icons/IconHelp';
 export const MENUS_HEADER = [
     {
         title: 'Hướng dẫn',
-        path: '/',
+        path: '/guide',
         icon: <IconGuide />,
     },
     {
@@ -15,7 +15,7 @@ export const MENUS_HEADER = [
     },
     {
         title: 'Tạo eVoucher',
-        path: '/voucher',
+        path: '/voucher/form',
         icon: <IconAddVoucher />,
     },
 ];
