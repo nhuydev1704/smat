@@ -1,20 +1,69 @@
-import { ProCard, ProForm, ProFormDependency, ProFormSelect, ProFormText } from '@ant-design/pro-components';
-import { Flex, message, Splitter, Typography } from 'antd';
-import React from 'react';
-import RcResizeObserver from 'rc-resize-observer';
-
-const Desc: React.FC<Readonly<{ text?: string | number }>> = (props) => (
-    <Flex justify="center" align="center" style={{ height: '100%' }}>
-        <Typography.Title type="secondary" level={5} style={{ whiteSpace: 'nowrap' }}>
-            {props.text}
-        </Typography.Title>
-    </Flex>
-);
+import CustomSplitterLayout from '@/layout/CustomSplitterLayout';
+import { ProCard, ProForm, ProFormText } from '@ant-design/pro-components';
+import { Button, message } from 'antd';
+import { useMemo } from 'react';
 
 const VoucherFormPage = () => {
-    const [responsive, setResponsive] = React.useState(false);
-
     // const { token } = theme.useToken();
+
+    const panels = useMemo(
+        () => [
+            {
+                itemKey: 'left',
+                title: 'Chọn sản phẩm',
+                content: (
+                    <>
+                        <ProFormText
+                            vertical
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '此项为必填项',
+                                },
+                            ]}
+                            name="name"
+                            label="签约客户名称"
+                            tooltip="最长为 24 位"
+                            placeholder="请输入名称"
+                        />
+                        <ProFormText
+                            name={['name2', 'text']}
+                            label="签约客户名称"
+                            tooltip="最长为 24 位"
+                            placeholder="请输入名称"
+                        />
+                    </>
+                ),
+                defaultSize: 400,
+                min: 340,
+                max: 500,
+            },
+            {
+                itemKey: 'right',
+                title: 'Tạo eVoucher',
+                isCard: true,
+                isSpace: true,
+                content: (responsive: boolean) => (
+                    <ProCard
+                        title="Tạo eVoucher"
+                        split={responsive ? 'horizontal' : 'vertical'}
+                        bordered
+                        headerBordered
+                        size="small"
+                    >
+                        <ProCard title="左侧详情" colSpan="50%">
+                            <div style={{ height: 360 }}>左侧内容</div>
+                        </ProCard>
+                        <ProCard title="流量占用情况">
+                            <div style={{ height: 360 }}>右侧内容</div>
+                            <Button htmlType="submit">test</Button>
+                        </ProCard>
+                    </ProCard>
+                ),
+            },
+        ],
+        []
+    );
 
     return (
         <ProForm
@@ -29,63 +78,7 @@ const VoucherFormPage = () => {
             }}
             submitter={false}
         >
-            <Splitter
-                style={{
-                    height: 'fit-content',
-                }}
-            >
-                <Splitter.Panel defaultSize="30%">
-                    <ProCard
-                        style={{
-                            height: '100%',
-                        }}
-                        title={<div style={{ fontWeight: 'bold', fontSize: '14px' }}>Chọn sản phẩm</div>}
-                        bordered
-                    >
-                        <ProFormText
-                            width="md"
-                            name="name"
-                            label="签约客户名称"
-                            tooltip="最长为 24 位"
-                            placeholder="请输入名称"
-                        />
-                        <ProFormText
-                            width="md"
-                            name={['name2', 'text']}
-                            label="签约客户名称"
-                            tooltip="最长为 24 位"
-                            placeholder="请输入名称"
-                        />
-                    </ProCard>
-                </Splitter.Panel>
-                <Splitter.Panel style={{ paddingLeft: '24px' }}>
-                    <ProCard bordered>
-                        <RcResizeObserver
-                            key="resize-observer"
-                            onResize={(offset) => {
-                                setResponsive(offset.width < 596);
-                            }}
-                        >
-                            <ProCard
-                                title="Tạo eVoucher"
-                                extra="2019年9月28日"
-                                split={responsive ? 'horizontal' : 'vertical'}
-                                bordered
-                                headerBordered
-                                boxShadow={false}
-                                size="small"
-                            >
-                                <ProCard title="左侧详情" colSpan="50%">
-                                    <div style={{ height: 360 }}>左侧内容</div>
-                                </ProCard>
-                                <ProCard title="流量占用情况">
-                                    <div style={{ height: 360 }}>右侧内容</div>
-                                </ProCard>
-                            </ProCard>
-                        </RcResizeObserver>
-                    </ProCard>
-                </Splitter.Panel>
-            </Splitter>
+            <CustomSplitterLayout panels={panels} />
         </ProForm>
     );
 };

@@ -73,4 +73,7 @@ select {
   }
 }
 
-
+/* style antd */
+.ant-pro-card-title {
+  font-weight: bold !important;
+}
