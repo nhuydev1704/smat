@@ -14,6 +14,7 @@ import { HeaderMenuItemStyled, HeaderMenuSidebarLogoStyled } from './style';
 
 export default function PrivateLayout() {
     const [collapsed, setCollapsed] = useState(false);
+    console.log('🚀 ~ PrivateLayout ~ collapsed:', collapsed);
 
     const { token } = theme.useToken();
 
@@ -79,7 +80,7 @@ export default function PrivateLayout() {
             avatarProps={{
                 src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
                 size: 'small',
-                title: 'Nguyễn Như Ý 2',
+                title: 'Client Admin',
 
                 render: (_, dom) => {
                     return (

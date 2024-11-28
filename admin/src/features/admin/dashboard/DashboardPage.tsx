@@ -1,10 +1,12 @@
+import { Avatar, Badge, Grid, List, theme } from 'antd';
 import React from 'react';
-import { Avatar, Badge, Grid, List, theme, Typography } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardPage = () => {
+    const navigate = useNavigate();
+
     const { useToken } = theme;
     const { useBreakpoint } = Grid;
-    const { Paragraph, Text } = Typography;
 
     const { token } = useToken();
     const screens = useBreakpoint();
@@ -99,32 +101,22 @@ const DashboardPage = () => {
         },
     };
 
+    React.useEffect(() => {
+        navigate('/customer');
+    }, []);
+
     return (
         <div style={styles.section}>
             <div style={styles.container}>
                 <List
                     dataSource={data}
-                    renderItem={(item, index) => (
+                    renderItem={(item) => (
                         <List.Item>
                             <div style={styles.notification}>
                                 <Badge dot>
                                     <Avatar alt={item.name} src={item.avatar} shape="square" />
                                 </Badge>
-                                <div style={styles.contentWrapper}>
-                                    <div style={styles.content}>
-                                        <div style={styles.titleWrapper}>
-                                            <div style={styles.title}>
-                                                <Text strong>{item.name}</Text>
-                                                <Text style={styles.text}>added a comment in </Text>
-                                                <Text strong>{item.file}</Text>
-                                            </div>
-                                            <Paragraph ellipsis={{ rows: 2 }} style={styles.preview}>
-                                                {item.content}
-                                            </Paragraph>
-                                        </div>
-                                        <Text style={styles.time}>{item.time}</Text>
-                                    </div>
-                                </div>
+                                <div style={styles.contentWrapper}>123</div>
                             </div>
                         </List.Item>
                     )}

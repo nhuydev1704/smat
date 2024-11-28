@@ -1,15 +1,8 @@
-import useAppStore from '@/store/app';
-
-import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
-import { ConfigProvider, Flex, notification, theme } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { ConfigProvider, notification } from 'antd';
 
 export default function ForgotPassword() {
-    const navigate = useNavigate();
-    const appStore = useAppStore();
-    const { token } = theme.useToken();
-
     // const iconStyles: CSSProperties = {
     //     marginInlineStart: '16px',
     //     color: setAlpha(token.colorTextBase, 0.2),

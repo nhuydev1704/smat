@@ -2,14 +2,14 @@ import AddButton from '@/components/button/AddButton';
 import { useRouter } from '@/hooks/userRouter';
 import ListLayout from '@/layout/ListLayout';
 import { useLocale } from '@/locales';
+import { LineChartOutlined } from '@ant-design/icons';
 import { ProColumns, TableDropdown } from '@ant-design/pro-components';
+import { Button } from 'antd';
 import React from 'react';
 import { useFetchCustomers } from '../customer/services/customer.Api';
 import CustomerChart from './charts';
 import CustomerForm from './CustomerForm';
 import { Customer } from './services/customer.Zustand';
-import { Button, Card } from 'antd';
-import { LineChartOutlined } from '@ant-design/icons';
 
 const columns: ProColumns<Customer>[] = [
     {
@@ -38,7 +38,7 @@ const columns: ProColumns<Customer>[] = [
         title: 'Thao tác',
         valueType: 'option',
         key: 'option',
-        render: (text, record, _, action) => [
+        render: (__, record, _, action) => [
             <a
                 key="editable"
                 onClick={() => {

@@ -19,8 +19,8 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({ chart }) => {
             if (chartRef.current) {
                 const { offsetWidth, offsetHeight } = chartRef.current;
                 setChartSize({
-                    width: offsetWidth,
-                    height: offsetHeight,
+                    width: offsetWidth - 32,
+                    height: offsetHeight - 16,
                 });
             }
         }, 300), // Adjust the debounce delay as needed
@@ -42,7 +42,7 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({ chart }) => {
         <div
             className="ant-pro-card ant-pro-card-border"
             ref={chartRef}
-            style={{ height: '100%', width: '100%', overflow: 'hidden' }}
+            style={{ height: '100%', width: '100%', overflow: 'hidden', padding: '16px' }}
         >
             {chartSize.width ? chart(chartSize.width, chartSize.height) : <Fallback />}
         </div>
