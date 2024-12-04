@@ -1,6 +1,8 @@
 import { debounce } from 'lodash';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Fallback from './Fallback';
+import { ProCard } from '@ant-design/pro-components';
+import { Card } from 'antd';
 
 interface ChartWrapperProps {
     chart: (width: number, height: number) => JSX.Element;
@@ -40,11 +42,15 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({ chart }) => {
 
     return (
         <div
-            className="ant-pro-card ant-pro-card-border"
-            ref={chartRef}
-            style={{ height: '100%', width: '100%', overflow: 'hidden', padding: '16px' }}
+            style={{
+                height: '100%',
+                width: '100%',
+                borderRadius: 'var(--card-border-radius-lg, 8px)',
+            }}
         >
-            {chartSize.width ? chart(chartSize.width, chartSize.height) : <Fallback />}
+            <Card ref={chartRef} style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
+                {chartSize.width ? chart(chartSize.width, chartSize.height) : <Fallback />}
+            </Card>
         </div>
     );
 };

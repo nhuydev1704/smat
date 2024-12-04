@@ -16,6 +16,7 @@ import routes from './router/routes';
 import useAppStore from './store/app';
 import useThemeStore from './store/theme';
 import { ANT_DESIGN_V5_THEME_EDITOR_THEME } from './constant/storage';
+import OverrideTheme from './theme/OverrideTheme';
 
 const router = createBrowserRouter(routes);
 
@@ -23,6 +24,7 @@ function App() {
     useReloadWhenTokenChange();
     const { locale, settings } = useAppStore();
     const { theme: themeToken, setTheme } = useThemeStore();
+    console.log('🚀 ~ App ~ themeToken:', themeToken);
 
     useLayoutEffect(() => {
         const storedConfig = localStorage.getItem(ANT_DESIGN_V5_THEME_EDITOR_THEME);
@@ -65,12 +67,10 @@ function App() {
         <>
             <CustomScroll heightRelativeToParent="100vh">
                 <ProConfigProvider
-                    token={{
-                        ...themeToken.token,
-                        ...themeToken.components,
-                        borderRadiusLG: 0,
-                        borderRadius: 0,
-                    }}
+                    // token={{
+                    //     ...themeToken.token,
+                    //     ...themeToken.components,
+                    // }}
                     intl={getProLocale()}
                     hashed
                 >
@@ -88,6 +88,9 @@ function App() {
                     </ConfigProvider>
                 </ProConfigProvider>
             </CustomScroll>
+
+            {/* handle override style pro */}
+            <OverrideTheme />
         </>
     );
 }

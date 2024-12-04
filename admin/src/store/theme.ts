@@ -13,9 +13,9 @@ const initialState: TThemeStore = {
     theme: {
         token: {
             borderRadius: 8,
-            colorBgBase: '#ffffff',
+            // colorBgBase: '#ffffff',
             colorWarning: '#ffc55a',
-            colorTextBase: '#223344',
+            // colorTextBase: '#223344',
             colorPrimary: '#1e90ff',
             colorInfo: '#1e90ff',
             colorPrimaryHover: '#61b1ff',
@@ -33,6 +33,13 @@ const initialState: TThemeStore = {
             Switch: {
                 colorPrimary: 'rgb(62,181,225)',
                 handleBg: 'rgb(30,144,255)',
+            },
+            Card: {
+                borderRadius: 8,
+                borderRadiusLG: 20,
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                boxShadowCard: '0px 0px 16px 8px rgba(14, 78, 144, 0.1)',
             },
         },
     },

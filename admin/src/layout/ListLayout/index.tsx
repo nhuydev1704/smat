@@ -1,10 +1,11 @@
 import { useRouter } from '@/hooks/userRouter';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import { ProCard, ProTable } from '@ant-design/pro-components';
 import { QueryObserverResult } from '@tanstack/react-query';
-import { Divider, Flex, Space, theme, Typography } from 'antd';
+import { Card, Divider, Flex, Space, theme, Typography } from 'antd';
 import React, { useRef } from 'react';
 import Filter from './Filter';
+import useThemeStore from '@/store/theme';
 
 interface IListLayoutProps<T extends Record<string, any>> {
     header: {
@@ -64,8 +65,6 @@ const ListLayout = <T extends Record<string, any>>({
 
     const { token } = useToken();
 
-    console.log('render table');
-
     const styles = {
         container: {
             margin: '0 auto',
@@ -91,6 +90,10 @@ const ListLayout = <T extends Record<string, any>>({
 
     return (
         <div>
+            <Space>
+                <ProCard>test</ProCard>
+                <ProCard>test2</ProCard>
+            </Space>
             <div style={styles.container}>
                 <Space size="middle" style={styles.header}>
                     <Space style={styles.textWrapper} direction="vertical" size={4}>
@@ -152,6 +155,9 @@ const ListLayout = <T extends Record<string, any>>({
                             onChange: (page) => setSearchParams({ ...searchParams, page }),
                         }}
                         rowSelection={rowSelection}
+                        cardProps={{
+                            bordered: false,
+                        }}
                     />
                 </Flex>
             </div>

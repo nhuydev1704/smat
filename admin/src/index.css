@@ -7,6 +7,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Style chung cho .ant-pro-card và .ant-card */
+.ant-pro-card, .ant-card {
+  border-radius: var(--card-border-radius-lg, 8px) !important;
+  /*Bogóc*/box-shadow: var(--card-box-shadow);
+  -webkit-border-radius: var(--card-border-radius-lg, 8px) !important;
+  -moz-border-radius: var(--card-border-radius-lg, 8px) !important;
+  -ms-border-radius: var(--card-border-radius-lg, 8px) !important;
+  -o-border-radius: var(--card-border-radius-lg, 8px) !important;
+}
+
 * {
   font-family: 'Quicksand', sans-serif !important;
   font-weight: 500;
