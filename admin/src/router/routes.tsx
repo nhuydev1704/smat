@@ -12,7 +12,7 @@ const SellPosPage = lazy(() => import('@/features/admin/sell/pages/sell-pos'));
 const CustomerPage = lazy(() => import('@/features/admin/customer/CustomerPage'));
 const NoMatch = lazy(() => import('@/features/auth/no-match'));
 const ForgotPassword = lazy(() => import('@/features/auth/forgot-password'));
-
+const StyleSetting = lazy(() => import('@/features/style-setting'));
 // voucher
 const VoucherFormPage = lazy(() => import('@/features/admin/voucher/VoucherFormPage'));
 
@@ -47,10 +47,15 @@ const routes: RouteObject[] = [
                 Component: VoucherFormPage,
             },
 
+            // setting style
+            {
+                path: '/style-setting',
+                Component: StyleSetting,
+            },
+
             // auth
             {
                 path: '/login',
-
                 Component: Login,
             },
             {

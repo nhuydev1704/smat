@@ -12,7 +12,7 @@ const VoucherFormPage = () => {
                 itemKey: 'left',
                 title: 'Chọn sản phẩm',
                 content: (
-                    <>
+                    <ProForm.Group>
                         <ProFormText
                             vertical
                             rules={[
@@ -32,7 +32,7 @@ const VoucherFormPage = () => {
                             tooltip="最长为 24 位"
                             placeholder="请输入名称"
                         />
-                    </>
+                    </ProForm.Group>
                 ),
                 defaultSize: 400,
                 min: 340,

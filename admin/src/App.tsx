@@ -5,23 +5,32 @@ import { ConfigProvider, theme } from 'antd';
 import enUS from 'antd/es/locale/en_US';
 import viVN from 'antd/es/locale/vi_VN';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useReloadWhenTokenChange } from './hooks/useStorageChange';
 import { CustomScroll } from './layout/ScrollWrapper';
-import ToggleTheme from './layout/ToggleTheme';
 import { localeConfig } from './locales';
 import './reset.css';
 import routes from './router/routes';
 import useAppStore from './store/app';
+import useThemeStore from './store/theme';
+import { ANT_DESIGN_V5_THEME_EDITOR_THEME } from './constant/storage';
 
 const router = createBrowserRouter(routes);
 
 function App() {
     useReloadWhenTokenChange();
-    const { currentUser, locale, settings } = useAppStore();
-    console.log('🚀 ~ App ~ currentUser:', currentUser);
+    const { locale, settings } = useAppStore();
+    const { theme: themeToken, setTheme } = useThemeStore();
+
+    useLayoutEffect(() => {
+        const storedConfig = localStorage.getItem(ANT_DESIGN_V5_THEME_EDITOR_THEME);
+        if (storedConfig) {
+            const themeConfig = JSON.parse(storedConfig);
+            setTheme(themeConfig);
+        }
+    }, []);
 
     useEffect(() => {
         if (locale === 'en_US') {
@@ -55,15 +64,20 @@ function App() {
     return (
         <>
             <CustomScroll heightRelativeToParent="100vh">
-                <ProConfigProvider intl={getProLocale()} hashed>
+                <ProConfigProvider
+                    token={{
+                        ...themeToken.token,
+                        ...themeToken.components,
+                        borderRadiusLG: 0,
+                        borderRadius: 0,
+                    }}
+                    intl={getProLocale()}
+                    hashed
+                >
                     <ConfigProvider
                         locale={getAntdLocale()}
                         theme={{
-                            components: {
-                                Form: {
-                                    itemMarginBottom: 16,
-                                },
-                            },
+                            ...themeToken,
                             hashed: true,
                             algorithm: settings.navTheme === 'realDark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
                         }}
@@ -74,7 +88,6 @@ function App() {
                     </ConfigProvider>
                 </ProConfigProvider>
             </CustomScroll>
-            {currentUser && <ToggleTheme />}
         </>
     );
 }
