@@ -90,10 +90,6 @@ const ListLayout = <T extends Record<string, any>>({
 
     return (
         <div>
-            <Space>
-                <ProCard>test</ProCard>
-                <ProCard>test2</ProCard>
-            </Space>
             <div style={styles.container}>
                 <Space size="middle" style={styles.header}>
                     <Space style={styles.textWrapper} direction="vertical" size={4}>
@@ -103,7 +99,7 @@ const ListLayout = <T extends Record<string, any>>({
                     {extra}
                 </Space>
                 <Divider style={{ margin: '10px 0 12px 0' }} />
-                <Flex vertical gap={10}>
+                <Flex vertical gap={24}>
                     {listHeader}
 
                     <ProTable<T>

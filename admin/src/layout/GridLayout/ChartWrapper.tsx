@@ -14,7 +14,6 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({ chart }) => {
         width: 0,
         height: 0,
     });
-    console.log('🚀 ~ chartSize:', chartSize);
 
     const updateChartSize = useCallback(
         debounce(() => {
@@ -41,17 +40,9 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({ chart }) => {
     }, [updateChartSize]);
 
     return (
-        <div
-            style={{
-                height: '100%',
-                width: '100%',
-                borderRadius: 'var(--card-border-radius-lg, 8px)',
-            }}
-        >
-            <Card ref={chartRef} style={{ height: '100%', width: '100%', overflow: 'hidden' }}>
-                {chartSize.width ? chart(chartSize.width, chartSize.height) : <Fallback />}
-            </Card>
-        </div>
+        <Card ref={chartRef} style={{ height: '100%', width: '100%' }}>
+            {chartSize.width ? chart(chartSize.width, chartSize.height) : <Fallback />}
+        </Card>
     );
 };
 

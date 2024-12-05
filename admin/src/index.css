@@ -80,7 +80,6 @@ ul.ant-dropdown-menu.ant-dropdown-menu-root {
     opacity: 0;
     transform: scale(0.95);
     max-height: 0;
-    overflow: hidden;
     -webkit-transform: scale(0.95);
     -moz-transform: scale(0.95);
     -ms-transform: scale(0.95);
