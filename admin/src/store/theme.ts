@@ -13,15 +13,23 @@ const initialState: TThemeStore = {
     theme: {
         token: {
             borderRadius: 8,
-            // colorBgBase: '#ffffff',
             colorWarning: '#ffc55a',
-            // colorTextBase: '#223344',
             colorPrimary: '#1e90ff',
             colorInfo: '#1e90ff',
             colorPrimaryHover: '#61b1ff',
             colorPrimaryActive: '#3eb5e1',
             colorErrorHover: '#ff7875',
             colorTextQuaternary: '#cccccc',
+            fontSizeHeading2: 28,
+            fontSizeHeading3: 26,
+            fontSizeHeading4: 22,
+            fontSizeXL: 18,
+            fontSizeHeading5: 20,
+            fontSizeHeading1: 32,
+            lineHeightHeading1: 1.5,
+            lineHeightHeading2: 1.5,
+            lineHeightHeading3: 1.5,
+            lineHeight: 1.5,
         },
         components: {
             Form: {

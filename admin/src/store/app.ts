@@ -23,6 +23,8 @@ const defaultSettings: ProSettings = {
     fixSiderbar: true,
     layout: 'mix',
     navTheme: 'light',
+    contentWidth: 'Fluid',
+
     // colorPrimary: theme.getDesignToken().colorPrimary,
 };
 

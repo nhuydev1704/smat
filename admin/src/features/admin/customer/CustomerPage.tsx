@@ -10,6 +10,8 @@ import { useFetchCustomers } from '../customer/services/customer.Api';
 import CustomerChart from './charts';
 import CustomerForm from './CustomerForm';
 import { Customer } from './services/customer.Zustand';
+import PageContent from '@/layout/PageContent';
+import Text from '@/components/ui/text';
 
 const columns: ProColumns<Customer>[] = [
     {
@@ -82,7 +84,17 @@ const CustomerPage = () => {
     }, []);
 
     return (
-        <>
+        <PageContent>
+            <Text type="heading" message="Heading" />
+            {/* <Button
+                onClick={() => setShowChart(!showChart)}
+                type={showChart ? 'primary' : 'default'}
+                icon={<LineChartOutlined />}
+            /> */}
+            <div className={`customer-chart-wrapper ${showChart ? 'show' : 'hide'}`}>
+                <CustomerChart />
+            </div>
+
             <ListLayout
                 loading={isFetching}
                 table={{
@@ -92,24 +104,9 @@ const CustomerPage = () => {
                     onReload: refetch,
                     toolBarCustom: [<AddButton onClick={() => setOpenForm(true)} />],
                 }}
-                listHeader={
-                    <div className={`customer-chart-wrapper ${showChart ? 'show' : 'hide'}`}>
-                        <CustomerChart />
-                    </div>
-                }
-                header={{
-                    title: formatMessage({ id: 'app.menu.customer' }),
-                    extra: (
-                        <Button
-                            onClick={() => setShowChart(!showChart)}
-                            type={showChart ? 'primary' : 'default'}
-                            icon={<LineChartOutlined />}
-                        />
-                    ),
-                }}
             />
             <CustomerForm open={openForm} onOpenChange={onOpenFormChange} />
-        </>
+        </PageContent>
     );
 };
 

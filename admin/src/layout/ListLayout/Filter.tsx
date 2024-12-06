@@ -8,6 +8,7 @@ const Filter = () => {
     return (
         <QueryFilter
             split
+            autoFocus={false}
             syncToUrl={false}
             onFinish={async (values) => {
                 setSearchParams(values);
@@ -29,6 +30,7 @@ const Filter = () => {
                 span: 0,
             }}
             initialValues={searchParams}
+            autoFocusFirstInput={false}
         >
             <ProFormText name="name" />
             <ProFormDatePicker name="createDate" />

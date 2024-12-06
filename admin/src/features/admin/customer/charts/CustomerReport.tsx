@@ -1,12 +1,14 @@
 import useAppStore from '@/store/app';
 import { Column, ColumnConfig } from '@ant-design/charts';
-import { DatePicker, Flex, Select, Space, Typography } from 'antd';
+import { DatePicker, Flex, Select, Space, theme, Typography } from 'antd';
 import { memo, useMemo } from 'react';
 
 const HEADER_HEIGHT = 52;
 
 const CustomerReport = ({ width, height }: { width: number; height: number }) => {
     const { settings } = useAppStore();
+
+    const { token } = theme.useToken();
 
     const data = useMemo(
         () => [
@@ -48,7 +50,7 @@ const CustomerReport = ({ width, height }: { width: number; height: number }) =>
             yField: 'frequency',
             theme: settings.navTheme === 'realDark' ? 'classicDark' : 'light',
         }),
-        [data, settings.navTheme, settings.colorPrimary]
+        [data, settings.navTheme]
     );
 
     return (
@@ -70,7 +72,17 @@ const CustomerReport = ({ width, height }: { width: number; height: number }) =>
                     />
                 </Space>
             </Flex>
-            <Column {...config} width={width} height={height - HEADER_HEIGHT} />
+            <Column
+                {...config}
+                width={width}
+                height={height - HEADER_HEIGHT}
+                colorField={{}}
+                scale={{
+                    color: {
+                        range: [token.colorPrimary],
+                    },
+                }}
+            />
         </div>
     );
 };

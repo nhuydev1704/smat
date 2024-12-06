@@ -35,7 +35,8 @@ export default function PrivateLayout() {
             <ProLayout
                 logo={logo}
                 onCollapse={setCollapsed}
-                prefixCls="layout-prefix"
+                // prefixCls="layout-prefix"
+                prefixCls="my-prefix"
                 siderWidth={256}
                 route={{
                     routes: menus,
@@ -124,7 +125,7 @@ export default function PrivateLayout() {
                             {MENUS_HEADER.map((item) => {
                                 return (
                                     <NavLink key={item.path} to={item.path}>
-                                        <HeaderMenuItemStyled active={item.path === pathname}>
+                                        <HeaderMenuItemStyled $active={item.path === pathname}>
                                             {item.icon}
                                             {item.title}
                                         </HeaderMenuItemStyled>
@@ -156,9 +157,10 @@ export default function PrivateLayout() {
                 }}
                 {...settings}
             >
-                <div style={{ zIndex: 0, padding: 20, minHeight: 'calc(100vh - 40px)' }}>
-                    <Outlet />
-                </div>
+                {/* <div style={{ zIndex: 0, padding: 20, minHeight: 'calc(100vh - 40px)' }}>
+                    </div> */}
+
+                <Outlet />
 
                 {/* <ToggleTheme /> */}
                 {/* <SettingDrawer

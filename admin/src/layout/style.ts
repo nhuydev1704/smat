@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 interface HeaderMenuItemProps {
-    active: boolean;
+    $active: boolean;
 }
 
 export const HeaderMenuItemStyled = styled.div<HeaderMenuItemProps>`
-    color: ${(props) => (props.active ? '#fff' : '#ccc')};
-    font-weight: ${(props) => (props.active ? 'bold' : '500')};
+    color: ${(props) => (props.$active ? '#fff' : '#ccc')};
+    font-weight: ${(props) => (props.$active ? 'bold' : '500')};
     font-size: 13.5px;
     font-weight: 600;
 

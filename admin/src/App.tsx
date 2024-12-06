@@ -72,13 +72,14 @@ function App() {
                     //     ...themeToken.components,
                     // }}
                     intl={getProLocale()}
-                    hashed
+                    hashed={false}
                 >
                     <ConfigProvider
                         locale={getAntdLocale()}
                         theme={{
                             ...themeToken,
                             hashed: true,
+
                             algorithm: settings.navTheme === 'realDark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
                         }}
                     >
