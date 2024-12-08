@@ -86,6 +86,13 @@ const CustomerPage = () => {
     return (
         <PageContent>
             <Text type="heading" message="Heading" />
+            <Text type="h1" message="h1" />
+            <Text type="h2" message="h2" />
+            <Text type="h3" message="h3" />
+            <Text type="h4" message="h4" />
+            <Text type="h5" message="h5" />
+            <Text type="h6" message="h6" />
+            <Text type="subtitle" message="Sub title" />
             {/* <Button
                 onClick={() => setShowChart(!showChart)}
                 type={showChart ? 'primary' : 'default'}
