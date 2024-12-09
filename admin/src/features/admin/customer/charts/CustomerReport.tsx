@@ -1,6 +1,7 @@
+import Text from '@/components/ui/text';
 import useAppStore from '@/store/app';
 import { Column, ColumnConfig } from '@ant-design/charts';
-import { DatePicker, Flex, Select, Space, theme, Typography } from 'antd';
+import { DatePicker, Flex, Select, Space, theme } from 'antd';
 import { memo, useMemo } from 'react';
 
 const HEADER_HEIGHT = 52;
@@ -56,7 +57,7 @@ const CustomerReport = ({ width, height }: { width: number; height: number }) =>
     return (
         <div>
             <Flex justify="space-between" align="center" style={{ padding: '0 20px', height: HEADER_HEIGHT }}>
-                <Typography.Text strong>Báo cáo KH</Typography.Text>
+                <Text type="h6" message="Báo cáo KH" />
                 <Space>
                     <Select rootClassName="grid-cancel" defaultValue="month">
                         <Select.Option value="day">Hôm nay</Select.Option>

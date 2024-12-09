@@ -4,6 +4,7 @@ import { ProTable } from '@ant-design/pro-components';
 import { QueryObserverResult } from '@tanstack/react-query';
 import React, { useRef } from 'react';
 import Filter from './Filter';
+import Text from '@/components/ui/text';
 
 interface IListLayoutProps<T extends Record<string, any>> {
     table: {
@@ -56,7 +57,11 @@ const ListLayout = <T extends Record<string, any>>({
             dateFormatter="string"
             cardBordered
             search={false}
-            headerTitle={<div style={{ fontWeight: '600' }}>{tableTitle}</div>}
+            headerTitle={
+                <div>
+                    <Text type="h6" message={tableTitle} />
+                </div>
+            }
             loading={loading}
             columns={columns}
             dataSource={dataSource}

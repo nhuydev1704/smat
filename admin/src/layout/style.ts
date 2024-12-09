@@ -14,9 +14,15 @@ export const HeaderMenuItemStyled = styled.div<HeaderMenuItemProps>`
     align-items: center;
     gap: 8px;
     transition: all 0.2s;
+    padding: 0 16px;
 
     &:hover {
         color: #fff;
+        background-color: var(--hover-color);
+    }
+
+    &:active {
+        background-color: var(--alternative-color);
     }
 `;
 

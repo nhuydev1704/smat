@@ -75,9 +75,11 @@ export default function PrivateLayout() {
                     sider: {
                         colorMenuBackground: token.colorBgContainer, // Giữ lại nếu màu nền hiện tại phù hợp với toàn bộ giao diện.
                         colorMenuItemDivider: '#e8e8e8', // Làm sáng màu divider để không quá nổi bật.
-                        colorTextMenu: '#4a4a4a', // Màu chữ trong menu nên tối hơn một chút, gần màu trung tính.
-                        colorTextMenuSelected: '#2a7afb', // Màu chữ của mục được chọn nên có độ sáng và nổi bật, giữ xanh dương với tone mạnh.
-                        colorBgMenuItemSelected: '#d6eaff', // Màu nền của mục được chọn nên nhạt để làm nổi bật nhưng không quá gắt.
+                        colorTextMenu: '#223344', // Màu chữ trong menu nên tối hơn một chút, gần màu trung tính.
+                        // colorTextMenuSelected: '#2a7afb', // Màu chữ của mục được chọn nên có độ sáng và nổi bật, giữ xanh dương với tone mạnh.
+                        colorBgMenuItemSelected: 'var(--alternative-color)', // Màu nền của mục được chọn nên nhạt để làm nổi bật nhưng không quá gắt.
+                        colorBgMenuItemHover: 'var(--hover-color)',
+                        colorBgMenuItemActive: 'var(--alternative-color)',
                     },
                 }}
                 menuFooterRender={() => {
@@ -121,7 +123,7 @@ export default function PrivateLayout() {
                 }}
                 headerTitleRender={() => {
                     return (
-                        <Space size="large">
+                        <Space style={{ gap: 0 }}>
                             {MENUS_HEADER.map((item) => {
                                 return (
                                     <NavLink key={item.path} to={item.path}>

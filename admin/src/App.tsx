@@ -71,6 +71,9 @@ function App() {
                     //     ...themeToken.token,
                     //     ...themeToken.components,
                     // }}
+                    token={{
+                        fontFamily: `Quicksand, sans-serif`, // Font Inter, you can replace it with your preferred font,
+                    }}
                     intl={getProLocale()}
                     hashed={false}
                 >
@@ -78,6 +81,10 @@ function App() {
                         locale={getAntdLocale()}
                         theme={{
                             ...themeToken,
+                            token: {
+                                ...themeToken.token,
+                                fontFamily: `Quicksand, sans-serif`, // Font Inter, you can replace it with your preferred font
+                            },
                             hashed: true,
 
                             algorithm: settings.navTheme === 'realDark' ? theme.darkAlgorithm : theme.defaultAlgorithm,

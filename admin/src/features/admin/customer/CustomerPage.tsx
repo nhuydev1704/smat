@@ -1,17 +1,14 @@
 import AddButton from '@/components/button/AddButton';
 import { useRouter } from '@/hooks/userRouter';
 import ListLayout from '@/layout/ListLayout';
+import PageContent from '@/layout/PageContent';
 import { useLocale } from '@/locales';
-import { LineChartOutlined } from '@ant-design/icons';
 import { ProColumns, TableDropdown } from '@ant-design/pro-components';
-import { Button } from 'antd';
 import React from 'react';
 import { useFetchCustomers } from '../customer/services/customer.Api';
 import CustomerChart from './charts';
 import CustomerForm from './CustomerForm';
 import { Customer } from './services/customer.Zustand';
-import PageContent from '@/layout/PageContent';
-import Text from '@/components/ui/text';
 
 const columns: ProColumns<Customer>[] = [
     {
@@ -85,14 +82,6 @@ const CustomerPage = () => {
 
     return (
         <PageContent>
-            <Text type="heading" message="Heading" />
-            <Text type="h1" message="h1" />
-            <Text type="h2" message="h2" />
-            <Text type="h3" message="h3" />
-            <Text type="h4" message="h4" />
-            <Text type="h5" message="h5" />
-            <Text type="h6" message="h6" />
-            <Text type="subtitle" message="Sub title" />
             {/* <Button
                 onClick={() => setShowChart(!showChart)}
                 type={showChart ? 'primary' : 'default'}
